@@ -1,0 +1,8 @@
+cifar10 ; softmax ; 0 ; 0.1
+cifar10 ; softmax ; 0 ; 0.01
+cifar100 ; softmax ; 0 ; 0.1
+cifar100 ; softmax ; 0 ; 0.01
+cifar10 ; onlinemean ; 0 ; 0.1
+cifar10 ; onlinemean ; 0 ; 0.01
+cifar100 ; onlinemean ; 0 ; 0.1
+cifar100 ; onlinemean ; 0 ; 0.01 

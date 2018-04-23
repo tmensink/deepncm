@@ -1,0 +1,16 @@
+cifar10 ; omreset ; 100 ; 0.1
+cifar10 ; omreset ; 195 ; 0.1
+cifar10 ; omreset ; 390 ; 0.1
+cifar10 ; omreset ; 781 ; 0.1
+cifar10 ; omreset ; 100 ; 0.01
+cifar10 ; omreset ; 195 ; 0.01
+cifar10 ; omreset ; 390 ; 0.01
+cifar10 ; omreset ; 781 ; 0.01
+cifar100 ; omreset ; 100 ; 0.1
+cifar100 ; omreset ; 195 ; 0.1
+cifar100 ; omreset ; 390 ; 0.1
+cifar100 ; omreset ; 781 ; 0.1
+cifar100 ; omreset ; 100 ; 0.01
+cifar100 ; omreset ; 195 ; 0.01
+cifar100 ; omreset ; 390 ; 0.01
+cifar100 ; omreset ; 781 ; 0.01
