@@ -6,7 +6,7 @@ It is written in python, and follows (as closely as possible) the Tensorflow off
 It uses GNU Parallel for experiments (Tange, GNU Parallel - The Command-Line Power Tool, 2011)
 
 ## Citation
-When using this code, or the ideas of DeepNCM, please cite the following paper ([pdf](https://openreview.net/forum?id=rkPLZ4JPM)
+When using this code, or the ideas of DeepNCM, please cite the following paper ([pdf](https://openreview.net/forum?id=rkPLZ4JPM))
 
     @INPROCEEDINGS{guerriero18openreview,
      author = {Samantha Guerriero and Barbara Caputo and Thomas Mensink},
@@ -14,3 +14,8 @@ When using this code, or the ideas of DeepNCM, please cite the following paper (
      booktitle = {International Conference on Learning Representations - Workshop (ICLRw)},
      year = {2018},
      }
+
+## ToDO
+- TF Models as subgit/module?
+- Jupyter Notebook
+- Results from TensorBoard
