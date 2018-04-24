@@ -261,12 +261,15 @@ def main(argv):
   flags.data_dir = DS.DATA_DIR
   print(flags.data_dir)
 
-  if not (flags.continu):
-      assert not os.path.isdir(flags.model_dir), "Model dir is not empty, nor continue is set"
+  if flags.scratch > 0 and os.path.isdir(flags.model_dir):
+    print ("Clear model_directory")
+    import shutil
+    shutil.rmtree(flags.model_dir)
+  elif flags.continu > 0:
+    assert os.path.isdir(flags.model_dir), "Model dir is empty, while continue is set"
+  elif flags.continu == 0 and flags.scratch == 0:
+    assert not os.path.isdir(flags.model_dir), "Model dir is not empty, nor continu or scratch is set"
 
-    #print ("Clear model_directory")
-    #import shutil
-    #shutil.rmtree(flags.model_dir)
 
   input_function = input_fn
 

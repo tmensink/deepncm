@@ -149,16 +149,23 @@ def resnet_model_fn(features, labels, mode, model_class,
   model = model_class(resnet_size, data_format=data_format, num_classes=labels.shape[1].value, version=version,ncm=ncm)
   logits, deep_x, deepmean = model(features, mode == tf.estimator.ModeKeys.TRAIN)
 
+  predictions = {
+      'classes': tf.argmax(logits, axis=1),
+      'probabilities': tf.nn.softmax(logits, name='softmax_tensor')
+  }
+
+
   dm = tf.identity(deepmean,"DM")
   #variable_summary(model.m_deep,"DeepMean")
   #variable_summary(model.m_sum,"M-Sum")
   #variable_summary(model.m_cnt,"M-Count")
   #tf.summary.scalar("NCM-iter",model.m_iter)
-
-  predictions = {
-      'classes': tf.argmax(logits, axis=1),
-      'probabilities': tf.nn.softmax(logits, name='softmax_tensor')
-  }
+  if not (model.ncmmethod == "softmax"):
+      rdist,mmsk = model.get_relative_mean_distance(deep_x=deep_x,labels=labels)  
+      mcmd = tf.metrics.mean(rdist,weights=mmsk)
+      rmd = tf.identity(mcmd[1],name="rmd")
+      rmd = tf.summary.scalar('rmd', rmd)  
+      predictions['rmd'] = tf.identity(rmd,name="rmd")
 
   if mode == tf.estimator.ModeKeys.PREDICT:
     # Return the predictions and the specification for serving a SavedModel
@@ -213,19 +220,9 @@ def resnet_model_fn(features, labels, mode, model_class,
 
   accuracy = tf.metrics.accuracy(tf.argmax(labels, axis=1), predictions['classes'])
 
-  if not (model.ncmmethod == "softmax"):
-      rdist,mmsk = model.get_relative_mean_distance(deep_x=deep_x,labels=labels)
-      clmd = tf.metrics.mean_tensor(rdist,weights=mmsk)
-      mcmd = tf.metrics.mean(rdist,weights=mmsk)
-      tf.identity(mcmd[1],name="train_mcmd")
-      tf.summary.scalar('train_mcmd', mcmd[1])
-      tf.identity(clmd[1],name="train_clmd")
-      tf.summary.histogram('train_clmd',clmd[1])
-
-      metrics = {'accuracy': accuracy, 'mrcd': mcmd}
-  else:
-      metrics = {'accuracy': accuracy}
-
+  metrics = {'accuracy': accuracy}
+  if not (model.ncmmethod == "softmax"): metrics['mcmdistance'] = mcmd
+    
   # Create a tensor named train_accuracy for logging purposes
   tf.identity(accuracy[1], name='train_accuracy')
   tf.summary.scalar('train_accuracy', accuracy[1])
@@ -369,8 +366,13 @@ class ResnetArgParser(argparse.ArgumentParser):
     )
 
     self.add_argument(
-        '--continu',
+        '--continu',type=int,default=0,
         help='Continue with an existing model, or start from scratch'
+    )
+
+    self.add_argument(
+        '--scratch',type=int,default=0,
+        help='Start from scratch even if model exist'
     )
 
     self.add_argument(
