@@ -5,13 +5,10 @@ doexp() {
   param=$(echo "$x" | cut -f 3 -d ";" | xargs)
   lr=$(echo "$x" | cut -f 4 -d ";" | xargs)
   logfile="logs/${dataset}_${method}_${param}_${lr}.log"
-  cmd="python cifar10_deepncm.py --dataset ${dataset} --ncmmethod ${method} --ncmparam ${param} -l ${lr} --scratch 1 >> ${logfile} 2>&1"
+  cmd="python cifar10_deepncm.py --dataset ${dataset} --ncmmethod ${method} --ncmparam ${param} -l ${lr} >> ${logfile} 2>&1"
   echo ${cmd}
   rm ${logfile}
   eval ${cmd}
 }
 export -f doexp
-#cat deepncm_experiments.txt | parallel -P 4 doexp
-#cat deepncm_experiments_reset.txt | parallel -P 4 doexp
-#cat deepncm_experiments_decay.txt | parallel -P 2 doexp
-cat deepncm_experiments_mean.txt | parallel -P 4 doexp
+cat deepncm_experiments.txt | parallel -P 4 doexp
