@@ -18,4 +18,4 @@ When using this code, or the ideas of DeepNCM, please cite the following paper (
 ## ToDO
 - TF Models as subgit/module?
 - Jupyter Notebook
-- Results from TensorBoard
+- Gradient clipping is now set to (-1.0,1.0), this could be checked
