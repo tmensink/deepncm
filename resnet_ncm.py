@@ -107,6 +107,10 @@ class NCMResModel(rn.ResNetX):
     #self.total = tf.get_variable("total",[final_size,num_classes],dtype=tf.float32,trainable=False, initializer=tf.initializers.random_normal())
     #self.count = tf.get_variable("count",[1,num_classes],dtype=tf.float32,trainable=False, initializer=tf.initializers.constant(1))
 
+  def get_mean_and_batch_mean(self,deep_x=None,labels=None):
+      bmean,bcounts = ncm_batch_means(deep_x,labels)
+      return _safe_div(self.total,self.count,name="deepmean"), bmean, bcounts
+
   def get_relative_mean_distance(self,deep_x=None,labels=None):
       bmean,bcounts = ncm_batch_means(deep_x,labels)
       dm,dmnorm = ncm_sq_dist_bt_norm(bmean,_safe_div(self.total, self.count,name='deepmean'))

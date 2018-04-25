@@ -33,6 +33,10 @@ import resnet_deepncm_run_loop as rrl
 ALLOW_MULTIPLE_MODELS = True
 DS = None
 
+def set_DS_global(dataset="cifar10"):
+    global DS
+    DS = set_dataset(dataset=dataset)
+
 def set_dataset(dataset="cifar10"):
     print("set_dataset")
     s = type('', (), {})()
@@ -221,7 +225,6 @@ def cifar10_model_fn(features, labels, mode, params):
         def loss_filter_fn(_):
             return True
 
-        print(params)
         ncm = {'method' : params['ncmmethod'],'param'  : params['ncmparam']}
 
         return rrl.resnet_model_fn(features, labels, mode,
