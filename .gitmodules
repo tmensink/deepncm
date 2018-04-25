@@ -1,0 +1,4 @@
+[submodule "libtf/models"]
+	path = libtf/models
+	url = https://github.com/tensorflow/models.git
+	branch = r1.7.0
