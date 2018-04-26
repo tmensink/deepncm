@@ -34,5 +34,5 @@ Comparison of the following methods: Softmax (sof), Online Means (onl), Mean Con
 Please contact me when your're interested to collaborate on this
 
 ### Copyright (2017-2018)
-Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
+Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl   
 Some preliminary source code is written by Samantha Guerriero and Thomas Mensink.
