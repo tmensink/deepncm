@@ -35,7 +35,7 @@ import tensorflow as tf  # pylint: disable=g-bad-import-order
 import numpy as np
 
 import resnet_ncm as rncm
-import resnet_run_loop as rrl
+#import resnet_run_loop as rrl
 ALLOW_MULTIPLE_MODELS = True
 
 import sys
@@ -44,7 +44,7 @@ from official.utils.arg_parsers import parsers
 from official.utils.export import export
 from official.utils.logging import hooks_helper
 from official.utils.logging import logger
-
+from official.resnet import resnet_run_loop as rrl
 ################################################################################
 # Functions for input processing.
 ################################################################################
