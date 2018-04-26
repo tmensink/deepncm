@@ -20,6 +20,6 @@ When using this code, or the ideas of DeepNCM, please cite the following paper (
 - Jupyter Notebook
 - Gradient clipping is now set to (-1.0,1.0), this could be checked
 
-## Copyright
-Source code is written by Samantha Guerriero and Thomas Mensink.
-(c) 2018 University of Amsterdam, Thomas Mensink
+### Copyright (2017-2018)
+Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
+Some preliminary source code is written by Samantha Guerriero and Thomas Mensink.

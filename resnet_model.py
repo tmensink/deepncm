@@ -1,30 +1,19 @@
-# Copyright 2017 The TensorFlow Authors. All Rights Reserved.
+# Copyright 2018 Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# Beloning to the DeepNCM repository
+# DeepNCM is proposed in
+#    Samantha Guerriero, Barbara Caputo, and Thomas Mensink
+#    DeepNCM: Deep Nearest Class Mean Classifiers
+#    ICLR Workshop 2018
+#    https://openreview.net/forum?id=rkPLZ4JPM
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+# This file (resnet_model) is based on resnet_model from the
+# TensorFlow Models Official ResNet library (release 1.8.0/1.7.0)
+# https://github.com/tensorflow/models/tree/master/official/resnet
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+# It contains the ResNet code to mimic th resnet_model making use of resnet_deepx.
 # ==============================================================================
-"""Contains definitions for Residual Networks.
-
-Residual networks ('v1' ResNets) were originally proposed in:
-[1] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
-    Deep Residual Learning for Image Recognition. arXiv:1512.03385
-
-The full preactivation 'v2' ResNet variant was introduced by:
-[2] Kaiming He, Xiangyu Zhang, Shaoqing Ren, Jian Sun
-    Identity Mappings in Deep Residual Networks. arXiv: 1603.05027
-
-The key difference of the full preactivation 'v2' variant compared to the
-'v1' variant in [1] is the use of batch normalization before every weight layer
-rather than after.
+"""Contains definitions for Residual Networks based on resnet_deepx
 """
 
 from __future__ import absolute_import

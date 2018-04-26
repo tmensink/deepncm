@@ -1,4 +1,19 @@
-# Copyright 2018 Thomas Mensink, University of Amsterdam
+# Copyright 2018 Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
+#
+# Beloning to the DeepNCM repository
+# DeepNCM is proposed in
+#    Samantha Guerriero, Barbara Caputo, and Thomas Mensink
+#    DeepNCM: Deep Nearest Class Mean Classifiers
+#    ICLR Workshop 2018
+#    https://openreview.net/forum?id=rkPLZ4JPM
+#
+# This file (resnet_ncm) has the code for different DeepNCM variantsis
+# including:
+#       softmax (as baseline)
+#       online means (onlinemean)
+#       mean condensation (omreset)
+#       decay mean (decaymean)
+#
 """Contains definitions for DeepNCM Residual Networks.
 
 DeepNCM is proposed in:
@@ -104,8 +119,7 @@ class NCMResModel(rn.ResNetX):
     self.iter  = tf.get_variable("iter", [],dtype=tf.float32,trainable=False, initializer=tf.initializers.constant(0))
     self.total = tf.get_variable("total",[final_size,num_classes],dtype=tf.float32,trainable=False, initializer=tf.initializers.constant(0))
     self.count = tf.get_variable("count",[1,num_classes],dtype=tf.float32,trainable=False, initializer=tf.initializers.constant(0))
-    #self.total = tf.get_variable("total",[final_size,num_classes],dtype=tf.float32,trainable=False, initializer=tf.initializers.random_normal())
-    #self.count = tf.get_variable("count",[1,num_classes],dtype=tf.float32,trainable=False, initializer=tf.initializers.constant(1))
+
 
   def get_mean_and_batch_mean(self,deep_x=None,labels=None):
       bmean,bcounts = ncm_batch_means(deep_x,labels)

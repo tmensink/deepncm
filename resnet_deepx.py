@@ -1,3 +1,19 @@
+# Copyright 2018 Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
+#
+# Beloning to the DeepNCM repository
+# DeepNCM is proposed in
+#    Samantha Guerriero, Barbara Caputo, and Thomas Mensink
+#    DeepNCM: Deep Nearest Class Mean Classifiers
+#    ICLR Workshop 2018
+#    https://openreview.net/forum?id=rkPLZ4JPM
+#
+# This file (resnet_deepx) is based on resnet_model from the
+# TensorFlow Models Official ResNet library (release 1.8.0/1.7.0)
+# https://github.com/tensorflow/models/tree/master/official/resnet
+#
+# It contains the ResNet code to create a deepnetwork, without a final layer.
+#
+# resnet_model.py has the following copyright notice:
 # Copyright 2017 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");

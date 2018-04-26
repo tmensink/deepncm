@@ -1,22 +1,26 @@
-# Copyright 2017 The TensorFlow Authors. All Rights Reserved.
+# Copyright 2018 Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
 #
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
+# Beloning to the DeepNCM repository
+# DeepNCM is proposed in
+#    Samantha Guerriero, Barbara Caputo, and Thomas Mensink
+#    DeepNCM: Deep Nearest Class Mean Classifiers
+#    ICLR Workshop 2018
+#    https://openreview.net/forum?id=rkPLZ4JPM
 #
-#     http://www.apache.org/licenses/LICENSE-2.0
+# This file (resnet_deepncm_run_loop) is based on resnet_run_loop from the
+# TensorFlow Models Official ResNet library (release 1.8.0/1.7.0)
+# https://github.com/tensorflow/models/tree/master/official/resnet
 #
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-# ==============================================================================
+# It contains code to support the ResNet DeepNCM models
+# Modifications are made to
+#   - resnet_model_fn call, to incorporate the NCM update ops
+#   - ResnetArgParser, to include different command line arguments
+#   - Main, to allow multiple models at the same GPU
 """Contains utility and supporting functions for ResNet.
 
   This module contains ResNet code which does not directly build layers. This
 includes dataset management, hyperparameter and optimizer code, and argument
-parsing. Code for defining the ResNet layers can be found in resnet_model.py.
+parsing. Code for defining the ResNet layers can be found in resnet_ncm.py.
 """
 
 from __future__ import absolute_import
@@ -29,17 +33,17 @@ import os
 import tensorflow as tf  # pylint: disable=g-bad-import-order
 
 import numpy as np
-#np.random.seed(234)
 
 import resnet_ncm as rncm
 import resnet_run_loop as rrl
 ALLOW_MULTIPLE_MODELS = True
 
+import sys
+sys.path.append("./tf/models/")
 from official.utils.arg_parsers import parsers
 from official.utils.export import export
 from official.utils.logging import hooks_helper
 from official.utils.logging import logger
-
 
 ################################################################################
 # Functions for input processing.
@@ -92,18 +96,6 @@ def learning_rate_with_decay(
   return learning_rate_fn
 
 
-def variable_summary(var,namescope="Variable_Summary"):
-  """Attach a lot of summaries to a Tensor (for TensorBoard visualization)."""
-  with tf.name_scope(namescope):
-    mean = tf.reduce_mean(var)
-    tf.summary.scalar('mean', mean)
-    with tf.name_scope('stddev'):
-      stddev = tf.sqrt(tf.reduce_mean(tf.square(var - mean)))
-    tf.summary.scalar('stddev', stddev)
-    tf.summary.scalar('max', tf.reduce_max(var))
-    tf.summary.scalar('min', tf.reduce_min(var))
-    tf.summary.histogram('histogram', var)
-
 def resnet_model_fn(features, labels, mode, model_class,
                     resnet_size, weight_decay, learning_rate_fn, momentum,
                     data_format, version, loss_filter_fn=None, multi_gpu=False, ncm=rncm.NCM_DEFAULT):
@@ -147,9 +139,6 @@ def resnet_model_fn(features, labels, mode, model_class,
   tf.summary.image('images', features, max_outputs=6)
 
   model = model_class(resnet_size, data_format=data_format, num_classes=labels.shape[1].value, version=version,ncm=ncm)
-
-  #tf.train.init_from_checkpoint('/tmp/deepncm/cifar10_resnet/onlinemean_lr1e-01/model.ckpt-1174',{'/','/'})
-
   logits, deep_x, deepmean = model(features, mode == tf.estimator.ModeKeys.TRAIN)
 
   predictions = {
@@ -159,10 +148,6 @@ def resnet_model_fn(features, labels, mode, model_class,
 
 
   dm = tf.identity(deepmean,"DM")
-  #variable_summary(model.m_deep,"DeepMean")
-  #variable_summary(model.m_sum,"M-Sum")
-  #variable_summary(model.m_cnt,"M-Count")
-  #tf.summary.scalar("NCM-iter",model.m_iter)
   if not (model.ncmmethod == "softmax"):
       rdist,mmsk = model.get_relative_mean_distance(deep_x=deep_x,labels=labels)
       mcmd = tf.metrics.mean(rdist,weights=mmsk)

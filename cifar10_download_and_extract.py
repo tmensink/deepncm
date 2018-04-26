@@ -1,3 +1,17 @@
+# Copyright 2018 Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
+#
+# Beloning to the DeepNCM repository
+# DeepNCM is proposed in
+#    Samantha Guerriero, Barbara Caputo, and Thomas Mensink
+#    DeepNCM: Deep Nearest Class Mean Classifiers
+#    ICLR Workshop 2018
+#    https://openreview.net/forum?id=rkPLZ4JPM
+#
+# This file (cifar10cifar10_download_and_extract) is based on the
+# TensorFlow Models Official ResNet library (release 1.8.0/1.7.0)
+# https://github.com/tensorflow/models/tree/master/official/resnet
+# It is changed to include both CIFAR10 as well as CIFAR100 dataset
+
 # Copyright 2015 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -13,7 +27,7 @@
 # limitations under the License.
 # ==============================================================================
 
-"""Downloads and extracts the binary version of the CIFAR-10 dataset."""
+"""Downloads and extracts the binary version of the CIFAR-10/CIFAR-100 dataset."""
 
 from __future__ import absolute_import
 from __future__ import division

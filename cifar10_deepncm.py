@@ -1,3 +1,17 @@
+# Copyright 2018 Thomas Mensink, University of Amsterdam, thomas.mensink@uva.nl
+#
+# Beloning to the DeepNCM repository
+# DeepNCM is proposed in
+#    Samantha Guerriero, Barbara Caputo, and Thomas Mensink
+#    DeepNCM: Deep Nearest Class Mean Classifiers
+#    ICLR Workshop 2018
+#    https://openreview.net/forum?id=rkPLZ4JPM
+#
+# This file (cifar10_deepncm) is based on cifar10_main.py from the
+# TensorFlow Models Official ResNet library (release 1.8.0/1.7.0)
+# https://github.com/tensorflow/models/tree/master/official/resnet
+# With the following copyright notice:
+#
 # Copyright 2017 The TensorFlow Authors. All Rights Reserved.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -14,8 +28,9 @@
 # ==============================================================================
 """Runs a ResNet model on the CIFAR-10 dataset."""
 
-# Change to include as well Cifar100
-#https://github.com/tensorflow/models/blob/master/research/resnet/cifar_input.py
+# Changed to include as well CIFAR100 experiments
+# Based on the Research ResNet model:
+# https://github.com/tensorflow/models/blob/master/research/resnet/cifar_input.py
 
 from __future__ import absolute_import
 from __future__ import division
@@ -23,7 +38,7 @@ from __future__ import print_function
 
 import os
 import sys
-sys.path.append("/home/tmensink/research/git/ncm/tf-models/models/")
+sys.path.append("./tf/models/")
 
 import tensorflow as tf  # pylint: disable=g-bad-import-order
 
