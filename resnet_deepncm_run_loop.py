@@ -214,8 +214,9 @@ def resnet_model_fn(features, labels, mode, model_class,
   metrics = {'accuracy': accuracy}
   if not (model.ncmmethod == "softmax"):
       metrics['mcmdistance'] = mcmd
-      metrics['batchmeans'] = tf.metrics.mean_tensor(tf.transpose(bm),weights=bmc)
-      metrics['deepmean'] = tf.metrics.mean_tensor(dm)
+      # The following is only required for the Relative Mean Distance Experiment
+      #metrics['batchmeans'] = tf.metrics.mean_tensor(tf.transpose(bm),weights=bmc)
+      #metrics['deepmean'] = tf.metrics.mean_tensor(dm)
 
   # Create a tensor named train_accuracy for logging purposes
   tf.identity(accuracy[1], name='train_accuracy')
