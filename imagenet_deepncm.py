@@ -208,7 +208,7 @@ class ImagenetModel(resnet.Model):
   """Model class with appropriate defaults for Imagenet data."""
 
   def __init__(self, resnet_size, data_format=None, num_classes=_NUM_CLASSES,
-               version=resnet.DEFAULT_VERSION):
+               version=resnet.RESNET_DEFAULT_VERSION,ncm=resnet.NCM_DEFAULT):
     """These are the parameters that work for Imagenet data.
 
     Args:
