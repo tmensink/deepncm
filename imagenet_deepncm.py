@@ -306,7 +306,7 @@ def main(argv):
   parser.set_defaults(
       resnet_size=50,
       train_epochs=100,
-      data_dir= "/tmp/deepncm/data/imagenet/",
+      data_dir= "/tmp/deepncm/data/imagenet/tf/",
       model_dir="/tmp/deepncm/exp/imagenet/"
   )
 
@@ -322,9 +322,6 @@ def main(argv):
   flags.model_dir += "_lr%5.0e" %(flags.initial_learning_scale)
 
   print(flags.model_dir)
-  flags.data_dir = DS.DATA_DIR
-  print(flags.data_dir)
-
 
 
   input_function = flags.use_synthetic_data and get_synth_input_fn() or input_fn
