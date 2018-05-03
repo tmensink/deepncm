@@ -265,7 +265,7 @@ def resnet_main(flags, model_function, input_function, shape=None):
      save_checkpoints_secs = 5*60,  # Save checkpoints every X minutes.
      keep_checkpoint_max = 1000,    # Retain the 1000 most recent checkpoints.
      #tf_random_seed = 5739,         # Set random seed for "reproducible" results
-     save_summary_steps = 10,       # Number of steps between summaries
+     save_summary_steps = 10000,       # Number of steps between summaries
      session_config=session_config)
 
   classifier = tf.estimator.Estimator(
