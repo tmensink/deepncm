@@ -34,8 +34,9 @@ import tensorflow as tf  # pylint: disable=g-bad-import-order
 
 import numpy as np
 
-import resnet_ncm as rncm
-#import resnet_run_loop as rrl
+#import resnet_ncm as rncm
+import resnet_ncmequal as rncm
+
 ALLOW_MULTIPLE_MODELS = True
 
 import sys

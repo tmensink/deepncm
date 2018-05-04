@@ -268,6 +268,9 @@ def main(argv):
   flags.model_dir = DS.DEFAULT_MODEL_DIR
   flags.model_dir += flags.ncmmethod
 
+  if flags.ncmmethod[-2:] == "eq":
+      flags.ncmmethod= flags.ncmmethod[:-2]
+
   if flags.ncmmethod == "decaymean":
       flags.model_dir += "_d%02d" %(flags.ncmparam*100)
   elif flags.ncmmethod == "omreset":
